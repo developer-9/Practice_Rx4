@@ -4,13 +4,11 @@ import RxCocoa
 
 let disposeBag = DisposeBag()
 
-let subject = BehaviorSubject(value: "Initial value")
+let relay = BehaviorRelay(value: "Initial Value")
 
-subject.onNext("Last issue")
+relay.asObservable()
+    .subscribe {
+        print($0)
+    }
 
-subject.subscribe { event in
-    print(event)
-}
-
-subject.onNext("Issue 1")
-
+relay.accept("sss")
