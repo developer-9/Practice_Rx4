@@ -5,18 +5,13 @@ import PlaygroundSupport
 
 let disposeBag = DisposeBag()
 
-let relay = BehaviorRelay(value: [String]())
+let strikes = PublishSubject<String>()
 
-var value = relay.value
+strikes.element(at: 2)
+    .subscribe(onNext: { _ in
+        print("you are out!")
+    }).disposed(by: disposeBag)
 
-value.append("Item 2")
-relay.accept(value)
+strikes.onNext("a")
+strikes.onNext("a")
 
-relay.asObservable()
-    .subscribe {
-        print($0)
-    }
-
-
-value.append("45")
-relay.accept(value)
